@@ -2,10 +2,11 @@
     <p>
         <mat-form-field appearance="outline">
           <mat-label>Search</mat-label>
-          <input matInput placeholder="Search...">
+          <input type="text" [(ngModel)]="searchProduct" (keyup.enter)="onSearch()" matInput placeholder="Search...">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </p>
 
     <button type="button" class="btn btn-warning">Agregar</button>
 </div>
+
