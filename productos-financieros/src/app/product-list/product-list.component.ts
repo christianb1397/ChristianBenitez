@@ -12,7 +12,7 @@ import { ProductInterface } from 'src/interfaces/product.interface';
 })
 export class ProductListComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['logo', 'name', 'description', 'date_release', 'date_revision'];
+  displayedColumns: string[] = ['logo', 'name', 'description', 'date_release', 'date_revision', 'icon'];
   dataSource = new MatTableDataSource<ProductInterface>(PRODUCTS);
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
@@ -23,7 +23,7 @@ export class ProductListComponent implements AfterViewInit {
 }
 
 const PRODUCTS: ProductInterface[] = [
-  {id: 'uno', name: 'Cuenta de Ahorros', description: 'Cuenta de Ahorros Normal', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01')},
-  {id: 'dos', name: 'Cuenta Corrientes', description: 'Cuentas Corrientes', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01')},
-  {id: 'tres', name: 'Cuenta de Ahorros', description: 'Cuenta de Ahorros Programado', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01')},
+  {id: 'uno', name: 'Cuenta de Ahorros', description: 'Cuenta de Ahorros Normal', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01'), icon: 'delete'},
+  {id: 'dos', name: 'Cuenta Corrientes', description: 'Cuentas Corrientes', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01'), icon: 'delete'},
+  {id: 'tres', name: 'Cuenta de Ahorros', description: 'Cuenta de Ahorros Programado', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01'), icon: 'delete'},
 ];
