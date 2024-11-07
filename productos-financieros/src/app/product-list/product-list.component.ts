@@ -1,7 +1,9 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, ViewChild} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { ProductInterface } from 'src/interfaces/product.interface';
+import { ProductInterface } from '../../../../be-productos-financieros/src/interfaces/product.interface';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 
 @Component({
@@ -12,6 +14,8 @@ import { ProductInterface } from 'src/interfaces/product.interface';
 })
 export class ProductListComponent implements AfterViewInit {
 
+  readonly dialog = inject(MatDialog);
+
   displayedColumns: string[] = ['logo', 'name', 'description', 'date_release', 'date_revision', 'icon'];
   dataSource = new MatTableDataSource<ProductInterface>(PRODUCTS);
 
@@ -19,6 +23,14 @@ export class ProductListComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  openDeleteDialog(){
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
 

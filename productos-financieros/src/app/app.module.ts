@@ -17,13 +17,16 @@ import { FormRegisterComponent } from './form-register/form-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
     ProductSearchComponent,
-    FormRegisterComponent
+    FormRegisterComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +41,11 @@ import {MatMenuModule} from '@angular/material/menu';
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

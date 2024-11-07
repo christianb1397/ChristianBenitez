@@ -44,7 +44,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="openDeleteDialog()">
                         <mat-icon>{{element.icon}}</mat-icon>
                         <span>Eliminar producto</span>
                     </button>

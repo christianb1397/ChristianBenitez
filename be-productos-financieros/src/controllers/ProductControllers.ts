@@ -11,10 +11,9 @@ import {
   NotFoundError,
   BadRequestError,
 } from "routing-controllers";
-import { ProductDTO } from "../dto/Product
+import { ProductDTO } from "../dto/Product";
 import { MESSAGE_ERROR } from "../const/message-error.const";
-import { ProductInterface } from "src/interfaces/product.interface";
-
+import { ProductInterface } from "../interfaces/product.interface";
 
 @JsonController("/products")
 export class ProductController {
