@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 import { ProductInterface } from '../../../../be-productos-financieros/src/interfaces/product.interface';
 
+
 @Component({
   selector: 'app-form-register',
   templateUrl: './form-register.component.html',
@@ -11,6 +12,10 @@ import { ProductInterface } from '../../../../be-productos-financieros/src/inter
 export class FormRegisterComponent {
 
   formulario: FormGroup;
+
+  starDate: string = '';
+
+  endDate: string = '';
 
   product: ProductInterface = {
     id: '',
@@ -35,10 +40,7 @@ export class FormRegisterComponent {
   }
 
   sendProduct() {
-    this.productService.createProducts(this.product).subscribe({
-      
-    })
-    console.log(this.formulario)
+    console.log(this.formulario.value.description)
   }
 
   clean() {
@@ -50,5 +52,35 @@ export class FormRegisterComponent {
       date_release: '',
       date_revision: ''
     });
+
   }
+
+  hasErrorID(controlName: string, errorType: string){
+    return this.formulario.get(controlName)?.hasError(errorType) && this.formulario.get(controlName)?.touched
+  }
+
+  updateDate() {
+    this.starDate = this.formulario.get('date_release')?.value
+
+    if(this.starDate) {
+      const startDateAux = new Date(this.starDate)
+
+      const nextYearDate = new Date(startDateAux.setFullYear(startDateAux.getFullYear() + 1 ));
+
+      this.endDate = this.formatDate(nextYearDate);
+      
+      this.formulario.patchValue({
+        date_revision: this.endDate
+      });
+    }
+  }
+
+  formatDate(date: Date){
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+
+    return `${day}/${month}/${year}`
+  }
+
 }
