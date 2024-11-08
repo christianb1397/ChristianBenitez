@@ -1,11 +1,12 @@
 import { createExpressServer } from "routing-controllers";
 import 'dotenv/config';
+import cors from 'cors';
 
 let PORT = 3002;
 
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
-  //cors: true,
+  cors: true,
   routePrefix: "/bp", 
 
   controllers: [

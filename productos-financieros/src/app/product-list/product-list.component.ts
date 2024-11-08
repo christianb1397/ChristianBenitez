@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ProductInterface } from '../../../../be-productos-financieros/src/interfaces/product.interface';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ProductService } from '../services/product.service';
 
 
 @Component({
@@ -12,18 +13,25 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   templateUrl: './product-list.component.html',
 
 })
-export class ProductListComponent implements AfterViewInit {
+export class ProductListComponent implements OnInit {
+
+  PRODUCTS: ProductInterface[] = [];
 
   readonly dialog = inject(MatDialog);
-
+  productsList: ProductInterface[] = [];
   displayedColumns: string[] = ['logo', 'name', 'description', 'date_release', 'date_revision', 'icon'];
-  dataSource = new MatTableDataSource<ProductInterface>(PRODUCTS);
+  dataSource: any
+
+  constructor(private productService: ProductService) { 
+
+  }
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  ngOnInit(): void {
+    this.getProducts();
   }
+
 
   openDeleteDialog(){
     const dialogRef = this.dialog.open(DeleteDialogComponent);
@@ -32,10 +40,17 @@ export class ProductListComponent implements AfterViewInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  getProducts() {
+    this.productService.getProducts().subscribe(productS => {
+      console.log(productS)
+      this.PRODUCTS = productS;
+      this.dataSource = new MatTableDataSource<ProductInterface>(this.PRODUCTS);
+  	  this.dataSource.paginator = this.paginator;
+    })
+  }
 }
 
-const PRODUCTS: ProductInterface[] = [
-  {id: 'uno', name: 'Cuenta de Ahorros', description: 'Cuenta de Ahorros Normal', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01'), icon: 'delete'},
-  {id: 'dos', name: 'Cuenta Corrientes', description: 'Cuentas Corrientes', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01'), icon: 'delete'},
-  {id: 'tres', name: 'Cuenta de Ahorros', description: 'Cuenta de Ahorros Programado', logo: ':)', date_release:new Date('2025/01/01'),date_revision:new Date('2025/01/01'), icon: 'delete'},
-];
+
+
+

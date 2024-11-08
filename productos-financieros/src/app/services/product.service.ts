@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProductDTO } from 'src/dto/Product';
-import { ProductInterface } from 'src/interfaces/product.interface';
+import { map, Observable } from 'rxjs';
+import { ProductInterface } from '../../../../be-productos-financieros/src/interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +9,16 @@ import { ProductInterface } from 'src/interfaces/product.interface';
 export class ProductService {
 
   private apiURL = 'http://localhost:3002/bp/products'
+
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<ProductInterface[]>{
-    return this.http.get<ProductInterface[]>(this.apiURL);
+  getProducts(): Observable<any[]> {
+    return this.http.get<{data: ProductInterface[]}>(this.apiURL).pipe(
+      map(response => response.data)
+    );
   }
 
-  createProducts(product: Omit<ProductDTO, 'id'>): Observable<ProductInterface>{
+  createProducts(product: Omit<ProductInterface, 'id'>): Observable<ProductInterface>{
     return this.http.post<ProductInterface>(this.apiURL, product);
 
   }
