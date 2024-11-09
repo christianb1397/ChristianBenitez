@@ -1,11 +1,15 @@
-<h2 mat-dialog-title>Eliminar Producto Financiero</h2>
-<mat-dialog-content class="mat-typography">
-  <p>Estás seguro que desea eliminar el producto <b>{{ deletedProduct?.name }}</b>?</p>
+<ng-container >
 
-  <hr>
-</mat-dialog-content>
+  <h2 mat-dialog-title>Eliminar Producto Financiero</h2>
+  <mat-dialog-content class="mat-typography">
+    <p>Estás seguro que desea eliminar el producto <b>{{ deletedProduct?.name }}</b>?</p>
+  
+    <hr>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="center">
+    <button class="btn btn-secondary" mat-dialog-close>Cancelar</button>
+    <button class="btn btn-warning" [mat-dialog-close]="true" cdkFocusInitial (click)="onDelete()">Confirmar</button>
+  </mat-dialog-actions>
+</ng-container>
 
-<mat-dialog-actions align="center">
-  <button class="btn btn-secondary"  mat-dialog-close>Cancelar</button>
-  <button class="btn btn-warning"  [mat-dialog-close]="true" cdkFocusInitial (click)="onDelete()">Confirmar</button>
-</mat-dialog-actions>

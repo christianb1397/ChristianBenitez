@@ -21,7 +21,7 @@ export class DeleteDialogComponent implements OnInit {
       this.productId = this.data.id
       console.log(this.productId)
       this.productService.getProducts().subscribe(products => {
-  
+
         this.productList = products;
         console.log(this.productList)
   
@@ -39,6 +39,7 @@ export class DeleteDialogComponent implements OnInit {
     if(this.productId){
       this.productService.deleteProduct(this.productId).subscribe(productDeleted => {
         console.log(">>>>>>>>"+productDeleted)
+
       })
     }
 

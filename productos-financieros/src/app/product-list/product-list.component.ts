@@ -5,7 +5,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ProductInterface } from '../../../../be-productos-financieros/src/interfaces/product.interface';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { ProductService } from '../services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class ProductListComponent implements OnInit {
 
   productId: string | null = '';
 
-  constructor(private productService: ProductService, private _route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private _route: ActivatedRoute, private router: Router) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
 
@@ -38,14 +38,21 @@ export class ProductListComponent implements OnInit {
 
   openDeleteDialog(){
 
+
     this.productId = this._route.snapshot.paramMap.get('id');
+
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: {id: this.productId}
+      
     });
+
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.getProducts()
+      this.router.navigate(['/bp/products/']);
+
     });
   }
 
@@ -56,6 +63,10 @@ export class ProductListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<ProductInterface>(this.PRODUCTS);
   	  this.dataSource.paginator = this.paginator;
     })
+  }
+
+  filter(value: string){
+    this.dataSource.filter = value.trim().toLowerCase()
   }
 }
 

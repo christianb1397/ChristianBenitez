@@ -1,6 +1,6 @@
 <div class="mat-elevation-z8" id="data">
     <div>
-        <app-product-search />
+        <app-product-search (search)="filter($event)" />
     </div>
     <table mat-table [dataSource]="dataSource">
 

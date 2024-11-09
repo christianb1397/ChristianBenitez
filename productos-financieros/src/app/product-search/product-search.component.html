@@ -1,12 +1,20 @@
 <div class="form-inline">
-    <p>
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <p>
         <mat-form-field appearance="outline">
           <mat-label>Search</mat-label>
-          <input type="text" [(ngModel)]="searchProduct" (keyup.enter)="onSearch()" matInput placeholder="Search...">
+          <input type="text" [(ngModel)]="searchProduct" (keyup)="onSearch()" matInput placeholder="Search...">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
-    </p>
+      </p>
+    </div>
+    <div class="col-md-6 text-md-end">
 
-    <button type="button" class="btn btn-warning" [routerLink]="['/bp/products/create']">Agregar</button>
+      <button style="height: 7vh; width: 10vh;" type="button" class="btn btn-warning" [routerLink]="['/bp/products/create']">Agregar</button>
+    </div>
+
+  </div>
 </div>
-
