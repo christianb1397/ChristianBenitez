@@ -28,9 +28,9 @@ export class ProductService {
     return this.http.put<ProductInterface>(url, productUpdate);
   }
 
-  deleteProducts(id: string): Observable<{message: string}> {
+  deleteProduct(id: string): Observable<void> {
     const url = `${this.apiURL}/${id}`
-    return this.http.delete<{message: string}>(url);
+    return this.http.delete<void>(url);
   }
 
 

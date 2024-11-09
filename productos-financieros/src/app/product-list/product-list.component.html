@@ -44,7 +44,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="openDeleteDialog()">
+                    <button mat-menu-item (click)="openDeleteDialog()" [routerLink]="['/bp/products', element.id]">
                         <mat-icon >delete_outline</mat-icon>
                         <span>Eliminar producto</span>
                     </button>

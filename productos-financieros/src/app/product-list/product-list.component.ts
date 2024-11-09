@@ -5,6 +5,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ProductInterface } from '../../../../be-productos-financieros/src/interfaces/product.interface';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { ProductService } from '../services/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,13 +19,16 @@ export class ProductListComponent implements OnInit {
   PRODUCTS: ProductInterface[] = [];
 
   readonly dialog = inject(MatDialog);
+
   productsList: ProductInterface[] = [];
+
   displayedColumns: string[] = ['logo', 'name', 'description', 'date_release', 'date_revision', 'icon'];
+
   dataSource: any
 
-  constructor(private productService: ProductService) { 
+  productId: string | null = '';
 
-  }
+  constructor(private productService: ProductService, private _route: ActivatedRoute) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
 
@@ -32,9 +36,13 @@ export class ProductListComponent implements OnInit {
     this.getProducts();
   }
 
-
   openDeleteDialog(){
-    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    this.productId = this._route.snapshot.paramMap.get('id');
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {id: this.productId}
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -43,7 +51,7 @@ export class ProductListComponent implements OnInit {
 
   getProducts() {
     this.productService.getProducts().subscribe(productS => {
-      console.log(productS)
+      //console.log(productS)
       this.PRODUCTS = productS;
       this.dataSource = new MatTableDataSource<ProductInterface>(this.PRODUCTS);
   	  this.dataSource.paginator = this.paginator;
